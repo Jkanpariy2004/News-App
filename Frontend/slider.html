@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Posts Slider</title>
+
+    <!-- Slick Slider CSS -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+
+    <!-- Font Awesome (for arrows) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        .slick-slider .card {
+            margin: 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .slick-prev,
+        .slick-next {
+            font-size: 24px;
+            color: #000;
+            z-index: 1;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .slick-prev {
+            left: 0;
+        }
+
+        .slick-next {
+            right: 0;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .popular-post .slick-slider .card .card-body .card-title {
+            font-size: 19px;
+            font-weight: 600;
+        }
+
+        .popular-post .slick-slider .card .card-body .card-text {
+            font-size: 13px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .popular-post .slick-slider .card .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            margin-right: 10px;
+        }
+
+        .popular-post .slick-slider .card .icon {
+            margin-top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="popular-post mt-5 mb-5">
+        <div class="d-flex mb-5 position-relative">
+            <div class="post w-50 text-start">
+                <p class="mb-0 fw-bold fs-5">Popular Post</p>
+            </div>
+            <div class="arrow w-50 text-end position-relative">
+                <i class="fa-solid fa-chevron-left slick-prev"></i>
+                <i class="fa-solid fa-chevron-right slick-next"></i>
+            </div>
+        </div>
+
+        <div class="slick-slider">
+            <div class="card">
+                <img src="images/top-post/01.png" class="post-image"
+                    alt="Opening Day Of Boating Season, Seattle Wa">
+                <div class="card-body">
+                    <p class="card-title">House boating on Lake Shasta</p>
+                    <p class="card-text">The best way to spend a long 4th of July weekend. Wake boarding, swimming, barbecues, and bonfires.</p>
+                    <div class="d-flex mt-3">
+                        <div class="w-75 d-flex">
+                            <div>
+                                <img src="images/popular-post/img-1.png" alt="James" class="avatar">
+                            </div>
+                            <div>
+                                <h6 class="mb-1">James</h6>
+                                <p>August 18 , 2022</p>
+                            </div>
+                        </div>
+                        <div class="w-25 text-end">
+                            <img src="images/popular-post/card icon.png" alt="" class="icon">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <img src="images/top-post/02.png" class="post-image"
+                    alt="How To Choose The Right Laptop For...">
+                <div class="card-body">
+                    <p class="card-title">How to choose the right laptop for progra</p>
+                    <p class="card-text">Choosing the right laptop for programming can be a tough process. It’s easy to get confused while researching the various</p>
+                    <div class="d-flex mt-3">
+                        <div class="w-75 d-flex">
+                            <div>
+                                <img src="images/popular-post/img-2.png" alt="Louis l̥ōHoebregts" class="avatar">
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Robert</h6>
+                                <p>July 25 , 2022</p>
+                            </div>
+                        </div>
+                        <div class="w-25 text-end">
+                            <img src="images/popular-post/card icon.png" alt="" class="icon">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="images/top-post/03.png" class="post-image"
+                    alt="How we built the first real self-driving car">
+                <div class="card-body">
+                    <p class="card-title">Why Buying a New Car Makes More Sense</p>
+                    <p class="card-text">Many experts will tell you buying cars used is best for your long-term financial health. Here’s why they’re (mostly) wrong</p>
+                    <div class="d-flex mt-3">
+                        <div class="w-75 d-flex">
+                            <div>
+                                <img src="images/popular-post/img-3.png" alt="Mary" class="avatar">
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Mary</h6>
+                                <p>July 14 , 2022</p>
+                            </div>
+                        </div>
+                        <div class="w-25 text-end">
+                            <img src="images/popular-post/card icon.png" alt="" class="icon">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="images/top-post/04.png" class="post-image"
+                    alt="How to Persuade Your Parents to Buy Fast Food">
+                <div class="card-body">
+                    <p class="card-title">Lasagna is but a Pasta Cake</p>
+                    <p class="card-text">Re-envision the description of a common food from a different perspective — it is … pasta cake layered with cheese, meat, pasta repeated, bake and serve.</p>
+                    <div class="d-flex mt-3">
+                        <div class="w-75 d-flex">
+                            <div>
+                                <img src="images/popular-post/img-4.png" alt="Jon Kantner" class="avatar">
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Jon Kantner</h6>
+                                <p>May 10 , 2022</p>
+                            </div>
+                        </div>
+                        <div class="w-25 text-end">
+                            <img src="images/popular-post/card icon.png" alt="" class="icon">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.slick-slider').slick({
+                slidesToShow: 4, // Number of slides to show at once
+                slidesToScroll: 1, // Number of slides to scroll at a time
+                arrows: true, // Show arrows
+                prevArrow: $('.slick-prev'), // Previous arrow selector
+                nextArrow: $('.slick-next'), // Next arrow selector
+                responsive: [
+                    {
+                        breakpoint: 992, // Breakpoint for medium devices
+                        settings: {
+                            slidesToShow: 2, // Number of slides to show at once on medium devices
+                        }
+                    },
+                    {
+                        breakpoint: 576, // Breakpoint for small devices
+                        settings: {
+                            slidesToShow: 1, // Number of slides to show at once on small devices
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+
+</body>
+
+</html>
