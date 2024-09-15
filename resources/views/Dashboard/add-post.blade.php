@@ -151,6 +151,18 @@
         $('#postForm').on('submit', function(e) {
             e.preventDefault();
 
+            var isValid = true; // Flag for validation
+            // Validate required fields
+            $('input[required], select[required], textarea[required]').each(function() {
+                if ($(this).val() === '') {
+                    $(this).addClass('is-invalid');
+                    $('#' + $(this).attr('id') + '-error').text('This field is required.');
+                    isValid = false; // Set flag to false if any field is invalid
+                }
+            });
+
+            if (!isValid) return; // Stop submission if validation fails
+
             var formData = new FormData(this);
 
             $.ajax({
