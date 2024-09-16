@@ -46,17 +46,18 @@ class post extends Controller
     {
         $message = [
             'title.required' => 'Please Enter Your Post Title.',
+            'title.min' => 'Please Enter 8 Char Post Title.',
             'description.required' => 'Please Enter Your Post Description.',
             'category.required' => 'Please Select a Category.',
             'thumbnail_image.required' => 'Please Upload a Thumbnail Image.',
-            'thumbnail_image.mimes' => 'The Thumbnail Image must be a file of type: jpg, png, jpeg.',
+            'thumbnail_image.mimes' => 'The Thumbnail image please upload this extension: jpg, png, jpeg.',
             'thumbnail_image.max' => 'The Thumbnail Image may not be greater than 20MB.',
             'auther_name.required' => 'Please Enter the Author Name.',
             'publish_date.required' => 'Please Enter the Publish Date.',
             'post_type.required' => 'Please Select a Post Type.',
         ];
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
+            'title' => 'required|min:8',
             'description' => 'required',
             'category' => 'required',
             'thumbnail_image' => 'required|mimes:jpg,png,jpeg|max:20480',
@@ -204,11 +205,7 @@ class post extends Controller
     public function fetchArticles()
     {
         try {
-            $url = 'https://newsapi.org/v2/everything?q=apple&from=2024-09-02&to=2024-09-02&sortBy=popularity&apiKey=fa5e97426df04f5782bbab982ec48f0b';
-
-            $response = Http::get($url);
-
-            $articles = $response->json()['articles'];
+            $articles = fetchArticlesFromApi();
 
             $insertArticle = function ($article) {
                 dbpost::create([
@@ -292,5 +289,4 @@ class post extends Controller
             'data' => $posts,
         ]);
     }
-
 }

@@ -138,132 +138,129 @@
         <!-- Drag Target Area To SlideIn Menu On Small Screens -->
         <div class="drag-target"></div>
     </div>
-</body>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('input, select, textarea').on('input', function() {
-            $(this).removeClass('is-invalid');
-            $('#' + $(this).attr('id') + '-error').text('');
-        });
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-        $('#postForm').on('submit', function(e) {
-            e.preventDefault();
+    <!-- Include jQuery Validation Plugin from a different CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 
-            var isValid = true;
-
-            var title = $('#title').val();
-            if (title.trim() === '') {
-                $('#title').addClass('is-invalid');
-                $('#title-error').text('Title is required');
-                isValid = false;
+    <script>
+        $(document).ready(function() {
+            // Ensure jQuery Validation is loaded
+            if (typeof $.fn.validate === 'undefined') {
+                console.error("jQuery Validation Plugin is not loaded.");
+                return;
             }
-
-            var description = $('#description').val();
-            if (description.trim() === '') {
-                $('#description').addClass('is-invalid');
-                $('#description-error').text('Description is required');
-                isValid = false;
-            }
-
-            var category = $('#category').val();
-            if (category === '') {
-                $('#category').addClass('is-invalid');
-                $('#category-error').text('Category is required');
-                isValid = false;
-            }
-
-            var thumbnail_image = $('#thumbnail_image').val();
-            if (thumbnail_image === '') {
-                $('#thumbnail_image').addClass('is-invalid');
-                $('#thumbnail_image-error').text('Thumbnail Image is required');
-                isValid = false;
-            }
-            // var thumbnail_image = $('#thumbnail_image').val();
-            // var validExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-            // var fileExtension = thumbnail_image.split('.').pop().toLowerCase();
-
-            // if (thumbnail_image === '') {
-            //     $('#thumbnail_image').addClass('is-invalid');
-            //     $('#thumbnail_image-error').text('Thumbnail Image is required');
-            //     isValid = false;
-            // } else if ($.inArray(fileExtension, validExtensions) === -1) {
-            //     $('#thumbnail_image').addClass('is-invalid');
-            //     $('#thumbnail_image-error').text(
-            //         'Invalid image format. Only jpg, jpeg, png, and gif are allowed.');
-            //     isValid = false;
-            // } else {
-            //     $('#thumbnail_image').removeClass('is-invalid');
-            //     $('#thumbnail_image-error').text('');
-            // }
-
-
-            var auther_name = $('#auther_name').val();
-            if (auther_name.trim() === '') {
-                $('#auther_name').addClass('is-invalid');
-                $('#auther_name-error').text('Author Name is required');
-                isValid = false;
-            }
-
-            var publish_date = $('#publish_date').val();
-            if (publish_date === '') {
-                $('#publish_date').addClass('is-invalid');
-                $('#publish_date-error').text('Publish Date is required');
-                isValid = false;
-            }
-
-            var post_type = $('#post_type').val();
-            if (post_type === '') {
-                $('#post_type').addClass('is-invalid');
-                $('#post_type-error').text('Post Type is required');
-                isValid = false;
-            }
-
-            if (isValid) {
-                var formData = new FormData(this);
-
-                $.ajax({
-                    url: '/SubmitPost',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: response.message,
-                            icon: 'success',
-                            timer: 3000,
-                            timerProgressBar: true,
-                            confirmButtonText: 'OK'
-                        }).then(function() {
-                            window.location.href = '/post';
-                        });
+            // Your validation code
+            jQuery('#postForm').validate({
+                rules: {
+                    title: {
+                        required: true,
+                        minlength: 5
                     },
-                    error: function(xhr) {
-                        var errors = xhr.responseJSON.errors;
-                        $('.is-invalid').removeClass('is-invalid');
-                        $('.invalid-feedback').text('');
+                    description: {
+                        required: true,
+                        minlength: 10
+                    },
+                    category: {
+                        required: true
+                    },
+                    thumbnail_image: {
+                        required: true,
+                        extension: "jpg|jpeg|png|gif"
+                    },
+                    auther_name: {
+                        required: true,
+                        minlength: 3
+                    },
+                    publish_date: {
+                        required: true,
+                        date: true
+                    },
+                    post_type: {
+                        required: true
+                    }
+                },
+                messages: {
+                    title: {
+                        required: "Title is required",
+                        minlength: "Title must be at least 5 characters"
+                    },
+                    description: {
+                        required: "Description is required",
+                        minlength: "Description must be at least 10 characters"
+                    },
+                    category: {
+                        required: "Please select a category"
+                    },
+                    thumbnail_image: {
+                        required: "Please upload an image",
+                        extension: "Only image files are allowed (jpg, jpeg, png, gif)"
+                    },
+                    auther_name: {
+                        required: "Author name is required",
+                        minlength: "Author name must be at least 3 characters"
+                    },
+                    publish_date: {
+                        required: "Publish date is required",
+                        date: "Please enter a valid date"
+                    },
+                    post_type: {
+                        required: "Please select a post type"
+                    }
+                },
+                errorClass: 'is-invalid',
+                errorElement: 'div',
+                highlight: function(element) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element) {
+                    $(element).removeClass('is-invalid');
+                },
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    if (element.prop('type') === 'file') {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                submitHandler: function(form) {
+                    event.preventDefault(); // Prevent default form submission
+                    var formData = new FormData(form);
 
-                        if (errors) {
+                    $.ajax({
+                        url: '/SubmitPost',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: response.message,
+                                icon: 'success',
+                                timer: 3000,
+                                timerProgressBar: true,
+                                confirmButtonText: 'OK'
+                            }).then(function() {
+                                window.location.href = '/post';
+                            });
+                        },
+                        error: function(xhr) {
+                            var errors = xhr.responseJSON.errors;
                             $.each(errors, function(key, value) {
                                 $('#' + key).addClass('is-invalid');
                                 $('#' + key + '-error').text(value[0]);
                             });
-                        } else {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'An unexpected error occurred. Please try again.',
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            });
                         }
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
+
+</body>
 
 </html>
