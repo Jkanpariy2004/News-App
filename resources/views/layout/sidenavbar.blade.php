@@ -51,7 +51,12 @@
                 <div data-i18n="Category">Category</div>
             </a>
         </li>
-
+        <li class="menu-item {{ Request::is('send-mail') ? 'active' : '' }}">
+            <a href="/send-mail" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-mail"></i>
+                <div data-i18n="Send Mail">Send Mail</div>
+            </a>
+        </li>
         <li class="menu-item {{ Request::is('Cache-Setting') ? 'active' : '' }}">
             <a href="/Cache-Setting" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-settings"></i>

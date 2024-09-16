@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\login;
 use App\Http\Controllers\Dashboard\index;
+use App\Http\Controllers\Dashboard\SendMail;
 use App\Http\Controllers\index As IndexController;
 use App\Http\Controllers\PostDetails;
 use App\Http\Controllers\CacheClear;
@@ -60,6 +61,10 @@ Route::get('/category-edit/{id}',[category::class,'edit']);
 Route::post('/category-update/{id}',[category::class,'update'])->name('category.update');
 Route::post('/bulk-delete-category', [category::class, 'bulkDelete']);
 Route::get('/fetch-category',[category::class,'FetchData']);
+
+// send Mail
+Route::get('/send-mail',[SendMail::class,'index']);
+Route::post('/Mail-Send',[SendMail::class,'MailSend']);
 
 // cache clear
 Route::get('/Cache-Setting',[CacheClear::class,'index']);

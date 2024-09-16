@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add Post</title>
+    <title>Document</title>
     <link rel="stylesheet" href="/assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="/assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="/assets/css/demo.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .is-invalid{
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -54,7 +59,6 @@
 
                                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                                         <script src="{{ asset('assets/tinymce/tinymce.min.js') }}"></script>
-
 
                                         <div class="mb-3">
                                             <label for="exampleFormControlSelect1" class="form-label">Post
@@ -138,132 +142,107 @@
         <!-- Drag Target Area To SlideIn Menu On Small Screens -->
         <div class="drag-target"></div>
     </div>
-</body>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('input, select, textarea').on('input', function() {
-            $(this).removeClass('is-invalid');
-            $('#' + $(this).attr('id') + '-error').text('');
-        });
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('input, select, textarea').on('input', function() {
+                $(this).removeClass('is-invalid');
+                $('#' + $(this).attr('id') + '-error').text('');
+            });
 
-        $('#postForm').on('submit', function(e) {
-            e.preventDefault();
+            $('#postForm').on('submit', function(e) {
+                e.preventDefault();
 
-            var isValid = true;
+                var isValid = true;
 
-            var title = $('#title').val();
-            if (title.trim() === '') {
-                $('#title').addClass('is-invalid');
-                $('#title-error').text('Title is required');
-                isValid = false;
-            }
+                var title = $('#title').val();
+                if (title.trim() === '') {
+                    $('#title').addClass('is-invalid');
+                    $('#title-error').text('Title is required');
+                    isValid = false;
+                }
 
-            var description = $('#description').val();
-            if (description.trim() === '') {
-                $('#description').addClass('is-invalid');
-                $('#description-error').text('Description is required');
-                isValid = false;
-            }
+                var description = $('#description').val();
+                if (description.trim() === '') {
+                    $('#description').addClass('is-invalid');
+                    $('#description-error').text('Description is required');
+                    isValid = false;
+                }
 
-            var category = $('#category').val();
-            if (category === '') {
-                $('#category').addClass('is-invalid');
-                $('#category-error').text('Category is required');
-                isValid = false;
-            }
+                var category = $('#category').val();
+                if (category === '') {
+                    $('#category').addClass('is-invalid');
+                    $('#category-error').text('Category is required');
+                    isValid = false;
+                }
 
-            var thumbnail_image = $('#thumbnail_image').val();
-            if (thumbnail_image === '') {
-                $('#thumbnail_image').addClass('is-invalid');
-                $('#thumbnail_image-error').text('Thumbnail Image is required');
-                isValid = false;
-            }
-            // var thumbnail_image = $('#thumbnail_image').val();
-            // var validExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-            // var fileExtension = thumbnail_image.split('.').pop().toLowerCase();
+                var thumbnail_image = $('#thumbnail_image').val();
+                if (thumbnail_image === '') {
+                    $('#thumbnail_image').addClass('is-invalid');
+                    $('#thumbnail_image-error').text('Thumbnail Image is required');
+                    isValid = false;
+                }
 
-            // if (thumbnail_image === '') {
-            //     $('#thumbnail_image').addClass('is-invalid');
-            //     $('#thumbnail_image-error').text('Thumbnail Image is required');
-            //     isValid = false;
-            // } else if ($.inArray(fileExtension, validExtensions) === -1) {
-            //     $('#thumbnail_image').addClass('is-invalid');
-            //     $('#thumbnail_image-error').text(
-            //         'Invalid image format. Only jpg, jpeg, png, and gif are allowed.');
-            //     isValid = false;
-            // } else {
-            //     $('#thumbnail_image').removeClass('is-invalid');
-            //     $('#thumbnail_image-error').text('');
-            // }
+                var auther_name = $('#auther_name').val();
+                if (auther_name.trim() === '') {
+                    $('#auther_name').addClass('is-invalid');
+                    $('#auther_name-error').text('Author Name is required');
+                    isValid = false;
+                }
 
+                var publish_date = $('#publish_date').val();
+                if (publish_date === '') {
+                    $('#publish_date').addClass('is-invalid');
+                    $('#publish_date-error').text('Publish Date is required');
+                    isValid = false;
+                }
 
-            var auther_name = $('#auther_name').val();
-            if (auther_name.trim() === '') {
-                $('#auther_name').addClass('is-invalid');
-                $('#auther_name-error').text('Author Name is required');
-                isValid = false;
-            }
+                var post_type = $('#post_type').val();
+                if (post_type === '') {
+                    $('#post_type').addClass('is-invalid');
+                    $('#post_type-error').text('Post Type is required');
+                    isValid = false;
+                }
 
-            var publish_date = $('#publish_date').val();
-            if (publish_date === '') {
-                $('#publish_date').addClass('is-invalid');
-                $('#publish_date-error').text('Publish Date is required');
-                isValid = false;
-            }
+                if (isValid) {
+                    var formData = new FormData(this);
 
-            var post_type = $('#post_type').val();
-            if (post_type === '') {
-                $('#post_type').addClass('is-invalid');
-                $('#post_type-error').text('Post Type is required');
-                isValid = false;
-            }
+                    $.ajax({
+                        url: '/SubmitPost',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: response.message,
+                                icon: 'success',
+                                timer: 3000,
+                                timerProgressBar: true,
+                                confirmButtonText: 'OK'
+                            }).then(function() {
+                                window.location.href = '/post';
+                            });
+                        },
+                        error: function(xhr) {
+                            var errors = xhr.responseJSON.errors;
+                            $('.is-invalid').removeClass('is-invalid');
+                            $('.invalid-feedback').text('');
 
-            if (isValid) {
-                var formData = new FormData(this);
-
-                $.ajax({
-                    url: '/SubmitPost',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: response.message,
-                            icon: 'success',
-                            timer: 3000,
-                            timerProgressBar: true,
-                            confirmButtonText: 'OK'
-                        }).then(function() {
-                            window.location.href = '/post';
-                        });
-                    },
-                    error: function(xhr) {
-                        var errors = xhr.responseJSON.errors;
-                        $('.is-invalid').removeClass('is-invalid');
-                        $('.invalid-feedback').text('');
-
-                        if (errors) {
                             $.each(errors, function(key, value) {
                                 $('#' + key).addClass('is-invalid');
                                 $('#' + key + '-error').text(value[0]);
                             });
-                        } else {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'An unexpected error occurred. Please try again.',
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            });
                         }
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
+
+</body>
 
 </html>

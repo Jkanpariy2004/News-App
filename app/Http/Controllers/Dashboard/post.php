@@ -7,7 +7,6 @@ use App\Models\category as dbcategory;
 use App\Models\post as dbpost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -46,18 +45,17 @@ class post extends Controller
     {
         $message = [
             'title.required' => 'Please Enter Your Post Title.',
-            'title.min' => 'Please Enter 8 Char Post Title.',
             'description.required' => 'Please Enter Your Post Description.',
             'category.required' => 'Please Select a Category.',
             'thumbnail_image.required' => 'Please Upload a Thumbnail Image.',
-            'thumbnail_image.mimes' => 'The Thumbnail image please upload this extension: jpg, png, jpeg.',
+            'thumbnail_image.mimes' => 'The Thumbnail Image must be a file of type: jpg, png, jpeg.',
             'thumbnail_image.max' => 'The Thumbnail Image may not be greater than 20MB.',
             'auther_name.required' => 'Please Enter the Author Name.',
             'publish_date.required' => 'Please Enter the Publish Date.',
             'post_type.required' => 'Please Select a Post Type.',
         ];
         $validator = Validator::make($request->all(), [
-            'title' => 'required|min:8',
+            'title' => 'required',
             'description' => 'required',
             'category' => 'required',
             'thumbnail_image' => 'required|mimes:jpg,png,jpeg|max:20480',
@@ -289,4 +287,5 @@ class post extends Controller
             'data' => $posts,
         ]);
     }
+
 }

@@ -1,19 +1,6 @@
 <link rel="stylesheet" href="/assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
 <link rel="stylesheet" href="/assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
 <link rel="stylesheet" href="/assets/css/demo.css" />
-<style>
-    /* .truncate {
-        width: 18rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
-        font-size: 16px;
-        word-wrap: break-word;
-    } */
-</style>
 
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -87,6 +74,11 @@
                                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                                 <script>
                                     $(document).ready(function() {
+                                        $('input, select, textarea').on('input', function() {
+                                            $(this).removeClass('is-invalid');
+                                            $('#' + $(this).attr('id') + '-error').text('');
+                                        });
+
                                         $('#search-form').on('submit', function(e) {
                                             e.preventDefault();
                                             let formData = $(this).serialize();

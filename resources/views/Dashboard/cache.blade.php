@@ -60,7 +60,7 @@
                                     </div>
                                     <div>
                                         <button class="btn btn-primary mt-2" onclick="clearCache('cache-clear')">Cache
-                                            Clear</button>
+                                            Clear</button>                                            
                                         <button class="btn btn-primary mt-2"
                                             onclick="clearCache('route-cache-clear')">Route
                                             Cache Clear</button>
